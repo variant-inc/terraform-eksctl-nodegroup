@@ -1,5 +1,0 @@
-provider "eksctl" {
-}
-
-provider "aws" {
-}

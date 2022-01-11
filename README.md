@@ -1,141 +1,79 @@
-# terraform-eksctl-nodegroup
-Terraform module for creating aws kubernetes node groups
+# Terraform eksctl node group
 
+Terraform module to create cluster node group
 
-## Resources
+## Table of Contents
 
-* Tags
+- [Terraform eksctl node group](#terraform-eksctl-node-group)
+  - [Table of Contents](#table-of-contents)
+  - [Usage](#usage)
+  - [Pre-requisite](#pre-requisite)
+  - [Requirements](#requirements)
+  - [Providers](#providers)
+  - [Modules](#modules)
+  - [Resources](#resources)
+  - [Inputs](#inputs)
+  - [Outputs](#outputs)
 
-## Input Variables
+## Usage
 
-| Name             | Type           | Description                             | Default | Example                                                                                                                                                                                                           |
-|------------------|----------------|-----------------------------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name             | string         | Node Group name                         |         |                                                                                                                                                                                                                   |
-| region           | string         | AWS region                              |         |                                                                                                                                                                                                                   |
-| cluster_name     | string         | Cluster name                            |         |                                                                                                                                                                                                                   |
-| nodes_min        | number         | Minimum number of nodes                 |         |                                                                                                                                                                                                                   |
-| nodes_max        | number         | Maximum number of nodes                 |         |                                                                                                                                                                                                                   |
-| instance_types   | list           | AWS EC2 instance type for cluster nodes |         | [ "t3.micro" ]                                                                                                                                                                                                    |
-| node_volume_size | number         | Node volume size                        |         |                                                                                                                                                                                                                   |
-| nodes            | number         | Total number of nodes                   |         |                                                                                                                                                                                                                   |
-| user_tags        | map ( string ) | User tags                               |         | "user_tags" :{        "team" : "devops" ,        "purpose" : "node group test" ,        "owner" : "devops"    }                                                                                                   |
-| octopus_tags     | map ( string ) | Octopus Tags                            |         | "octopus_tags" :{        "project" : "test" ,        "space" : "Default" ,        "environment" :  "development" ,        "project_group" :  "Default Project Group" ,        "release_channel" :  "release"    } |
-
-
-For `user_tags` , refer <https://github.com/variant-inc/lazy-terraform/tree/master/submodules/tags>
-
-`octopus_tags` are auto set at octopus. Set the variable as
-
-```bash
-variable "octopus_tags" {
-  description = "Octopus Tags"
-  type = map(string)
-}
+```terraform
+  source = "github.com/variant-inc/terraform-eksctl-nodegroup?ref=v1"
 ```
 
-## Examples
+## Pre-requisite
 
-To test as a module
-
-Set AWS profile as below before running the module
+Run below command before running the module
 
 ```bash
 export AWS_PROFILE=dpl
 ```
 
-versions.tf
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
 
-```bash
-terraform {
-  required_version = ">=1.0.0"
-  required_providers {
-    eksctl = {
-      source  = "mumoshu/eksctl"
-      version = "0.16.2"
-    }
-  }
-}
-```
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.0.0 |
+| <a name="requirement_eksctl"></a> [eksctl](#requirement\_eksctl) | 0.16.2 |
 
-provider.tf
+## Providers
 
-```bash
-provider "eksctl" {
-}
+| Name | Version |
+|------|---------|
+| <a name="provider_eksctl"></a> [eksctl](#provider\_eksctl) | 0.16.2 |
 
-provider "aws" {
-  profile = "dpl"
-  region  = "us-east-1"
-}
-```
+## Modules
 
-main.tf
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_tags"></a> [tags](#module\_tags) | github.com/variant-inc/lazy-terraform//submodules/tags?ref=v1 |  |
 
-```bash
+## Resources
 
-module "node_group" {
-  #source = "git::https://github.com/variant-inc/terraform-eksctl-nodegroup.git?ref=v1"
-  #For branch
-  source           = "git::https://github.com/variant-inc/terraform-eksctl-nodegroup.git?ref=feature/CLOUD-1161-add-node-group"
-  name             = "ng1"
-  region           = "us-east-1"
-  cluster_name     = "devops-playground"
-  nodes_min        = 1
-  nodes_max        = 1
-  nodes            = 1
-  instance_types   = ["t3.micro"]
-  node_volume_size = 10
-  user_tags = {
-    "team" : "devops",
-    "purpose" : "node group test",
-    "owner" : "devops"
-  }
-  octopus_tags = {
-    "project" : "test",
-    "space" : "Default",
-    "environment" : "development",
-    "project_group" : "Default Project Group",
-    "release_channel" : "release"
-  }
+| Name | Type |
+|------|------|
+| [eksctl_nodegroup.ng](https://registry.terraform.io/providers/mumoshu/eksctl/0.16.2/docs/resources/nodegroup) | resource |
 
-}
+## Inputs
 
-```
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Cluster name | `string` | n/a | yes |
+| <a name="input_cluster_region"></a> [cluster\_region](#input\_cluster\_region) | AWS cluster region | `string` | n/a | yes |
+| <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | AWS EC2 instance type for cluster nodes | `list(any)` | <pre>[<br>  "c6i.2xlarge"<br>]</pre> | no |
+| <a name="input_managed"></a> [managed](#input\_managed) | Create EKS-managed nodegroup | `bool` | `true` | no |
+| <a name="input_name"></a> [name](#input\_name) | Node Group name | `string` | n/a | yes |
+| <a name="input_node_volume_size"></a> [node\_volume\_size](#input\_node\_volume\_size) | Node volume size | `number` | `100` | no |
+| <a name="input_nodes"></a> [nodes](#input\_nodes) | Total number of nodes | `number` | `1` | no |
+| <a name="input_nodes_max"></a> [nodes\_max](#input\_nodes\_max) | Maximum number of nodes | `number` | `10` | no |
+| <a name="input_nodes_min"></a> [nodes\_min](#input\_nodes\_min) | Minimum number of nodes | `number` | `1` | no |
+| <a name="input_octopus_tags"></a> [octopus\_tags](#input\_octopus\_tags) | Octopus Tags | `map(string)` | n/a | yes |
+| <a name="input_user_tags"></a> [user\_tags](#input\_user\_tags) | User tags | `map(string)` | n/a | yes |
 
-.tfvars.json
+## Outputs
 
-```json
-{
-    "name": "ng-1",
-    "region": "us-east-1",
-    "cluster_name":"devops-playground",
-    "nodes_min": 1,
-    "nodes_max": 1,
-    "nodes":1,
-    "instance_types": ["t3.micro"],
-    "node_volume_size": 10,
-    "user_tags":{
-      "team":"devops",
-      "purpose":"node group test",
-      "owner":"devops"
-   },
-   "octopus_tags":{
-      "project":"test",
-      "space":"Default",
-      "environment": "development",
-      "project_group": "Default Project Group",
-      "release_channel": "release"
-   }
-
-  }
-```
-
-## Output Variables
-
-| Name                      | Type   |
-|---------------------------|--------|
-| kubeconfig_path           | string |
-
-## References
-
-Refer <https://github.com/mumoshu/terraform-provider-eksctl#add-and-remove-nodegroups> which seems to be the best one
+| Name | Description |
+|------|-------------|
+| <a name="output_nodegroup_config"></a> [nodegroup\_config](#output\_nodegroup\_config) | Outputs the node group configurations |
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
