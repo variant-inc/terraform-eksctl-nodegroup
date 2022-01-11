@@ -14,17 +14,17 @@ variable "cluster_name" {
 }
 
 variable "nodes_min" {
-  type        = string
-  description = "Minimum number of worker nodes"
+  type        = number
+  description = "Minimum number of nodes"
 }
 
 variable "nodes_max" {
-  type        = string
-  description = "Maximum number of worker nodes"
+  type        = number
+  description = "Maximum number of nodes"
 }
 
 variable "instance_types" {
-  type        = list
+  type        = list(any)
   description = "AWS EC2 instance type for cluster nodes"
 }
 
@@ -35,7 +35,7 @@ variable "node_volume_size" {
 
 variable "nodes" {
   type        = number
-  description = "total number of nodes"
+  description = "Total number of nodes"
 }
 
 variable "user_tags" {
