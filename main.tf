@@ -1,20 +1,19 @@
-resource "eksctl_cluster" "primary" {
-  eksctl_version = var.eksctl_version
-  name           = var.name
-  region         = var.region
-  version        = "1.18"
-  spec           = <<-EOS
-    iam:
-      withOIDC: true
-      serviceAccounts: [] # managed by terraform
+module "tags" {
+  source       = "github.com/variant-inc/lazy-terraform//submodules/tags?ref=v1"
+  name         = var.name
+  user_tags    = var.user_tags
+  octopus_tags = var.octopus_tags
+}
 
-    managedNodeGroups:
-      - name: ${var.node_group_name}
-        instanceType: ${var.instance_type}
-        desiredCapacity: ${var.nodes_count}
-  EOS
-
-  lifecycle {
-    prevent_destroy = true
-  }
+resource "eksctl_nodegroup" "ng" {
+  name = var.name
+  region = var.region
+  cluster = var.cluster_name
+  nodes_min = var.nodes_min
+  nodes = var.nodes
+  instance_types = var.instance_types
+  node_volume_size = var.node_volume_size
+  node_private_networking = true
+  disable_pod_imds = true
+  tags = module.tags.tags
 }

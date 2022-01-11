@@ -1,35 +1,49 @@
 variable "name" {
   type        = string
-  default     = "k8s-dev-env"
-  description = "AWS EKS Cluster name"
+  description = "Node Group name"
 }
 
 variable "region" {
   type        = string
-  default     = "us-east-2"
   description = "AWS region"
 }
 
-variable "node_group_name" {
+variable "cluster_name" {
   type        = string
-  default     = "ng-1"
-  description = "AWS EKS Node Group name"
+  description = "Cluster name"
 }
 
-variable "instance_type" {
+variable "nodes_min" {
   type        = string
-  default     = "t3.medium"
+  description = "Minimum number of worker nodes"
+}
+
+variable "nodes_max" {
+  type        = string
+  description = "Maximum number of worker nodes"
+}
+
+variable "instance_types" {
+  type        = list
   description = "AWS EC2 instance type for cluster nodes"
 }
 
-variable "nodes_count" {
+variable "node_volume_size" {
   type        = number
-  default     = 3
-  description = "The desired number of instances in the AWS EKS cluster node group"
+  description = "Node volume size"
 }
 
-variable "eksctl_version" {
-  type        = string
-  default     = ""
-  description = "The eksctl version to use, if empty the system version is used"
+variable "nodes" {
+  type        = number
+  description = "total number of nodes"
+}
+
+variable "user_tags" {
+  description = "User tags"
+  type        = map(string)
+}
+
+variable "octopus_tags" {
+  description = "Octopus Tags"
+  type        = map(string)
 }
