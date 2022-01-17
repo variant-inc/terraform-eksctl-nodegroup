@@ -47,7 +47,7 @@ export AWS_PROFILE=dpl
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_tags"></a> [tags](#module\_tags) | github.com/variant-inc/lazy-terraform//submodules/tags | v1 |
+| <a name="module_tags"></a> [tags](#module\_tags) | github.com/variant-inc/lazy-terraform//submodules/tags?ref=v1 |  |
 
 ## Resources
 
