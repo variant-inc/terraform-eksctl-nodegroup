@@ -44,6 +44,11 @@ variable "nodes" {
   description = "Total number of nodes"
 }
 
+variable "node_labels" {
+  description = "Node labels"
+  type        = map(string)
+}
+
 variable "user_tags" {
   description = "User tags"
   type        = map(string)

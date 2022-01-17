@@ -47,7 +47,7 @@ export AWS_PROFILE=dpl
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_tags"></a> [tags](#module\_tags) | github.com/variant-inc/lazy-terraform//submodules/tags?ref=v1 |  |
+| <a name="module_tags"></a> [tags](#module\_tags) | github.com/variant-inc/lazy-terraform//submodules/tags | v1 |
 
 ## Resources
 
@@ -64,6 +64,7 @@ export AWS_PROFILE=dpl
 | <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | AWS EC2 instance type for cluster nodes | `list(any)` | <pre>[<br>  "c6i.2xlarge"<br>]</pre> | no |
 | <a name="input_managed"></a> [managed](#input\_managed) | Create EKS-managed nodegroup | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | Node Group name | `string` | n/a | yes |
+| <a name="input_node_labels"></a> [node\_labels](#input\_node\_labels) | Node labels | `map(string)` | n/a | yes |
 | <a name="input_node_volume_size"></a> [node\_volume\_size](#input\_node\_volume\_size) | Node volume size | `number` | `100` | no |
 | <a name="input_nodes"></a> [nodes](#input\_nodes) | Total number of nodes | `number` | `1` | no |
 | <a name="input_nodes_max"></a> [nodes\_max](#input\_nodes\_max) | Maximum number of nodes | `number` | `10` | no |

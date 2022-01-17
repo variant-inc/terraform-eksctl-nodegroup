@@ -21,5 +21,6 @@ resource "eksctl_nodegroup" "ng" {
   appmesh_access          = true
   appmesh_preview_access  = true
   alb_ingress_access      = true
+  node_labels             = var.node_labels
   tags                    = module.tags.tags
 }

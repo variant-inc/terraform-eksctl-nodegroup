@@ -12,6 +12,7 @@ module "node_group" {
   nodes            = var.nodes
   instance_types   = var.instance_types
   node_volume_size = var.node_volume_size
+  node_labels      = var.node_labels
   user_tags        = var.user_tags
   octopus_tags     = var.octopus_tags
 }
