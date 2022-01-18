@@ -23,4 +23,24 @@ resource "eksctl_nodegroup" "ng" {
   alb_ingress_access      = true
   node_labels             = var.node_labels
   tags                    = module.tags.tags
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+locals {
+  node_taints = jsonencode(var.node_taints)
+}
+
+resource "null_resource" "node_group_taints" {
+  triggers = {
+    nodegroup_name = eksctl_nodegroup.ng.name
+    cluster_name   = eksctl_nodegroup.ng.cluster
+    taints         = local.node_taints
+  }
+  provisioner "local-exec" {
+    working_dir = path.module
+    command     = "pwsh taints.ps1 -clusterName ${eksctl_nodegroup.ng.cluster} -nodegroupName ${eksctl_nodegroup.ng.name} -taints '${local.node_taints}'"
+  }
 }
