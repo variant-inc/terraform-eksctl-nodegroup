@@ -44,6 +44,15 @@ variable "nodes" {
   description = "Total number of nodes"
 }
 
+variable "node_taints" {
+  type = list(object({
+    key    = string
+    value  = string
+    effect = string
+  }))
+  description = "Taints to add to the nodegroup"
+}
+
 variable "node_labels" {
   description = "Node labels"
   type        = map(string)

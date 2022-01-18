@@ -6,5 +6,9 @@ terraform {
       source  = "mumoshu/eksctl"
       version = "0.16.2"
     }
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
   }
 }
