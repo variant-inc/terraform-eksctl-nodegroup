@@ -48,14 +48,14 @@ export AWS_PROFILE=dpl
 
 | Name | Version |
 |------|---------|
-| <a name="provider_eksctl"></a> [eksctl](#provider\_eksctl) | 0.16.2 |
+| <a name="provider_eksctl"></a> [eksctl](#provider\_eksctl) | >=0.16.2 |
 | <a name="provider_null"></a> [null](#provider\_null) | >=3.1.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_tags"></a> [tags](#module\_tags) | github.com/variant-inc/lazy-terraform//submodules/tags | v1 |
+| <a name="module_tags"></a> [tags](#module\_tags) | github.com/variant-inc/lazy-terraform//submodules/tags?ref=v1 |  |
 
 ## Resources
 
