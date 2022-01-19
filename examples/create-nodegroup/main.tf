@@ -1,8 +1,5 @@
-
 module "node_group" {
-  #source = "git::https://github.com/variant-inc/terraform-eksctl-nodegroup.git?ref=v1"
-  #For branch
-  source           = "git::https://github.com/variant-inc/terraform-eksctl-nodegroup.git?ref=feature/CLOUD-1161-add-node-group"
+  source           = "../../"
   name             = var.name
   cluster_region   = var.cluster_region
   cluster_name     = var.cluster_name
@@ -15,4 +12,5 @@ module "node_group" {
   node_labels      = var.node_labels
   user_tags        = var.user_tags
   octopus_tags     = var.octopus_tags
+  node_taints      = var.node_taints
 }

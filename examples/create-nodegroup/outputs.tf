@@ -1,4 +1,4 @@
 output "nodegroup_config" {
-  value       = eksctl_nodegroup.ng
+  value       = module.node_group.nodegroup_config
   description = "Outputs the node group configurations"
 }
