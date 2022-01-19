@@ -15,18 +15,16 @@ param (
 $ErrorActionPreference = "Stop"
 $InformationPreference = "Continue"
 $WarningPreference = "SilentlyContinue"
-function CommandAliasFunction
-{
-  Write-Information ""
-  Write-Information "$args"
-  $cmd, $args = $args
-  $params = $args -split " "
-  & "$cmd" @params
-  if ($LASTEXITCODE)
-  {
-    throw "Exception Occured"
-  }
-  Write-Information ""
+function CommandAliasFunction {
+    Write-Information ""
+    Write-Information "$args"
+    $cmd, $args = $args
+    $params = $args -split " "
+    & "$cmd" @params
+    if ($LASTEXITCODE) {
+        throw "Exception Occured"
+    }
+    Write-Information ""
 }
 
 Set-Alias -Name ce -Value CommandAliasFunction -Scope script
@@ -34,16 +32,16 @@ Set-Alias -Name ce -Value CommandAliasFunction -Scope script
 $taints = $taints | ConvertFrom-Json
 
 $taintsCmdInput = @{
-    clusterName = $clusterName
+    clusterName   = $clusterName
     nodegroupName = $nodegroupName
-    taints = @{
+    taints        = @{
         addOrUpdateTaints = @()
-        removeTaints = @()
+        removeTaints      = @()
     }
 }
 
 # Add taints
-if ($taints.Count -gt 0){
+if ($taints.Count -gt 0) {
     $addTaintsCmdInput = $taintsCmdInput
     foreach ($i in $taints) {
         $addTaintsCmdInput.taints.addOrUpdateTaints += $i
@@ -69,7 +67,8 @@ if ($taints.Count -gt 0 -and $existingTaints.Count -gt 0 ) {
         Write-Output $_
         $_.PSObject.Properties.Remove('SideIndicator')
     }
-} else {
+}
+else {
     $taintsToRemove = $existingTaints
 }
 
@@ -78,14 +77,13 @@ if ($taintsToRemove.Length -gt 0) {
         $removeTaintsCmdInput.taints.removeTaints += $i
     }
     # If there have been taint updates, wait for node to return to active state
-    if ($removeTaintsCmdInput.taints.addOrUpdateTaints.Length -gt 0 ){
+    if ($removeTaintsCmdInput.taints.addOrUpdateTaints.Length -gt 0 ) {
         Start-Sleep -Seconds 15
     }
     $removeTaintsCmdInputJson = $removeTaintsCmdInput | ConvertTo-Json -Depth 5 -Compress
     Write-Output "______removeTaints_______"
     Write-Output $removeTaintsCmdInputJson
     Set-Content -Path removeTaints.json $removeTaintsCmdInputJson
-   
     ce aws eks update-nodegroup-config --profile $Env:AWS_PROFILE --cli-input-json file://removeTaints.json
     Remove-Item -Path removeTaints.json
 }

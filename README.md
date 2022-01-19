@@ -35,15 +35,15 @@ export AWS_PROFILE=dpl
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.0.0 |
-| <a name="requirement_eksctl"></a> [eksctl](#requirement\_eksctl) | 0.16.2 |
-| <a name="requirement_null"></a> [null](#requirement\_null) | 3.1.0 |
+| <a name="requirement_eksctl"></a> [eksctl](#requirement\_eksctl) | >=0.16.2 |
+| <a name="requirement_null"></a> [null](#requirement\_null) | >=3.1.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_eksctl"></a> [eksctl](#provider\_eksctl) | 0.16.2 |
-| <a name="provider_null"></a> [null](#provider\_null) | 3.1.0 |
+| <a name="provider_null"></a> [null](#provider\_null) | >=3.1.0 |
 
 ## Modules
 
@@ -55,8 +55,8 @@ export AWS_PROFILE=dpl
 
 | Name | Type |
 |------|------|
-| [eksctl_nodegroup.ng](https://registry.terraform.io/providers/mumoshu/eksctl/0.16.2/docs/resources/nodegroup) | resource |
-| [null_resource.node_group_taints](https://registry.terraform.io/providers/hashicorp/null/3.1.0/docs/resources/resource) | resource |
+| [eksctl_nodegroup.ng](https://registry.terraform.io/providers/mumoshu/eksctl/latest/docs/resources/nodegroup) | resource |
+| [null_resource.node_group_taints](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 
 ## Inputs
 
